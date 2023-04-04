@@ -1,5 +1,6 @@
 body {
-    font-family: 'Tahoma' !important;
+    /*font-family: 'Tahoma' !important;*/
+    font-family: 'Roboto', sans-serif !important;
 }
 
 a {
@@ -34,8 +35,10 @@ code {
     text-align: center;
     height: 60px;
     text-transform: uppercase;
-    font-size: 12px;
-    font-weight: bold;
+    /*font-size: 12px;*/
+    font-size: 14px;
+    font-weight: 500;
+    /*font-weight: bold;*/
     color: #8D949E;
     border-top: 1px solid #282F3A;
     cursor: pointer;
@@ -155,12 +158,13 @@ code {
     cursor: pointer !important;
 }
 
-#click-filmes {
+#sign-out {
     cursor: pointer;
-    font-style: italic;
+    /*font-style: italic;*/
+    width: 75px;
 }
 
-.div-filmes p {
+.div-info p {
     margin-left: 50px;
     font-size: 15px;
 }

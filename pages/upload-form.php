@@ -6,15 +6,21 @@
 
     <div class="col-md-12 ml-45 mt-5 display-flex" id="div-aviso">
         <div class="col-md-3">
-            <input class="form-control" type="text" id="search-filmes" placeholder="Nome filme/série">
+            <input class="form-control" type="file" id="upload-file" placeholder="Selecione o arquivo">
         </div>
 
         <div class="col-md-3 ml-10">
-            <button class="btn btn-primary" type="button" id="click-filmes">Pesquisar</button>
+            <button class="btn btn-primary" type="button" id="load-file">Carregar arquivo</button>
+        </div>
+
+        <div class="col-md-3"></div>
+
+        <div class="col-md-3">
+            <button class="btn btn-primary float-start" type="button" id="sign-out">Sair</button>
         </div>
     </div>
 
-    <div class="col-md-12 mt-4 div-filmes">
+    <div class="col-md-12 mt-4 div-info">
         <p><span id="total-itens">0</span> registro(s) disponíveis em nossa base de dados:</p>
 
         <div class="col-md-11 margin-auto mt-5">
@@ -22,11 +28,11 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Título</th>
-                        <th>Genêro</th>
-                        <th>Descrição</th>
-                        <th>Data de Lançamento</th>
-                        <th>Pontuação</th>
+                        <th>Tipo</th>
+                        <th>Data</th>
+                        <th>Produto</th>
+                        <th>Valor</th>
+                        <th>Vendedor</th>
                     </tr>
                 </thead>
                 <tbody id="table-body">
@@ -36,6 +42,8 @@
                 </tbody>
             </table>
         </div>
+
+        <div id="teste"></div>
 
         <input type="hidden" id="pagina-atual" value="">
 

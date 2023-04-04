@@ -31,8 +31,7 @@ exports.create = (req, res) => {
         data: req.body.data,
         produto: req.body.produto,
         valor: req.body.valor,
-        vendedor: req.body.vendedor,
-        usuario: req.body.usuario
+        vendedor: req.body.vendedor
     });
 
     // Saves transaction created at database

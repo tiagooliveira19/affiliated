@@ -15,6 +15,38 @@
         // buscaFilmes(0);
         inicioPagina();
 
+        let logado = localStorage.getItem('LOGADO');
+
+        if (logado) {
+            usuarioLogado();
+        }
+
+        $('#sign-out').click(function () {
+            localStorage.removeItem('LOGADO');
+            localStorage.removeItem('USUARIO_LOGADO');
+
+            setTimeout(function () {
+                location.reload();
+            }, 300);
+        });
+
+        $('#load-file').click(function () {
+
+            if ($('#upload-file').val() === '') {
+                toastr.error('O campo arquivo não pode ser vazio!', '', {
+                    closeButton: true,
+                    progressBar: true,
+                    positionClass: "toast-top-right",
+                    preventDuplicates: true,
+                    showDuration: "300",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut"
+                });
+            } else {
+                importaArquivo();
+            }
+        });
+
         // Phone mask
         $('input[type="tel"]').inputmask({
             mask: ["(99) 9999-9999", "(99) 99999-9999"],

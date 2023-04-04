@@ -2,7 +2,7 @@ module.exports = (sequelize, Sequelize) => {
 
     return sequelize.define("transacoes", {
         tipo: {
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
         data: {
             type: "DATETIME"
@@ -11,12 +11,9 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         valor: {
-            type: Sequelize.FLOAT
-        },
-        vendedor: {
             type: Sequelize.STRING
         },
-        usuario: {
+        vendedor: {
             type: Sequelize.STRING
         },
         createdAt: {

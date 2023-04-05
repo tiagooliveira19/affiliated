@@ -12,7 +12,7 @@
 
     $(document).ready(function () {
 
-        // buscaFilmes(0);
+        buscaTransacoes(0);
         inicioPagina();
 
         let logado = localStorage.getItem('LOGADO');
@@ -72,7 +72,7 @@
             let paginaAtual = $('#pagina-atual').val();
             let page = parseInt(paginaAtual) + 1;
 
-            // buscaFilmes(page);
+            buscaTransacoes(page);
         });
 
         $('#anterior').click(function () {
@@ -80,7 +80,7 @@
             let paginaAtual = $('#pagina-atual').val();
             let page = parseInt(paginaAtual) - 1;
 
-            // buscaFilmes(page);
+            buscaTransacoes(page);
         });
     });
 </script>

@@ -1,5 +1,4 @@
 body {
-    /*font-family: 'Tahoma' !important;*/
     font-family: 'Roboto', sans-serif !important;
 }
 
@@ -35,14 +34,13 @@ code {
     text-align: center;
     height: 60px;
     text-transform: uppercase;
-    /*font-size: 12px;*/
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
-    /*font-weight: bold;*/
     color: #8D949E;
     border-top: 1px solid #282F3A;
     cursor: pointer;
     display: flex;
+    padding-top: 3px;
 }
 
 .tarja {
@@ -101,6 +99,10 @@ code {
     width: 100% !important;
 }
 
+.w-90 {
+    width: 90% !important;
+}
+
 .w-35 {
     width: 35% !important;
 }
@@ -124,6 +126,10 @@ code {
 
 .txt-center {
     text-align: center;
+}
+
+.txt-end {
+    text-align: end;
 }
 
 .display-block {
@@ -160,13 +166,16 @@ code {
 
 #sign-out {
     cursor: pointer;
-    /*font-style: italic;*/
     width: 75px;
 }
 
 .div-info p {
     margin-left: 50px;
     font-size: 15px;
+}
+
+#table-body {
+    font-size: 13px;
 }
 
 .arrow-pagination {

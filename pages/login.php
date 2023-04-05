@@ -1,5 +1,5 @@
 <div class="login-form">
-    <div class="col-md-12 w-35 cabecalho">
+    <div class="col-md-12 w-90 cabecalho">
         <label class="cabecalho-label">Login</label>
     </div>
 
@@ -30,7 +30,7 @@
 </div>
 
 <div class="hidden register-form">
-    <div class="col-md-12 w-35 cabecalho">
+    <div class="col-md-12 w-90 cabecalho">
         <label class="cabecalho-label">Cadastro</label>
     </div>
 

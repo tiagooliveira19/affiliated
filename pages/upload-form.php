@@ -1,10 +1,18 @@
 <div id="form-content">
 
-    <div class="col-md-12 w-35 mt-3 cabecalho">
-        <label class="cabecalho-label">Transações</label>
+    <div class="col-md-12 mt-3 w-90 cabecalho display-flex">
+        <div class="col-md-6">
+            <label class="cabecalho-label">Transações</label>
+        </div>
+
+        <div class="col-md-4"></div>
+
+        <div class="col-md-2">
+            <button class="btn btn-primary" type="button" id="sign-out">Sair</button>
+        </div>
     </div>
 
-    <div class="col-md-12 ml-45 mt-5 display-flex" id="div-aviso">
+    <div class="col-md-12 ml-45 mt-5 display-flex" id="div-upload">
         <div class="col-md-3">
             <input class="form-control" type="file" id="upload-file" placeholder="Selecione o arquivo">
         </div>
@@ -13,11 +21,7 @@
             <button class="btn btn-primary" type="button" id="load-file">Carregar arquivo</button>
         </div>
 
-        <div class="col-md-3"></div>
-
-        <div class="col-md-3">
-            <button class="btn btn-primary float-start" type="button" id="sign-out">Sair</button>
-        </div>
+        <div class="col-md-6"></div>
     </div>
 
     <div class="col-md-12 mt-4 div-info">
@@ -43,11 +47,9 @@
             </table>
         </div>
 
-        <div id="teste"></div>
-
         <input type="hidden" id="pagina-atual" value="">
 
-        <div class="col-md-10 mt-4 mb-4 hidden" id="div-pagination">
+        <div class="col-md-10 mt-4 mb-4 display-flex hidden" id="div-pagination">
             <div class="col-md-3"></div>
             <div class="col-md-4 txt-center margin-auto">
                 <span class="arrow-pagination" id="anterior">
@@ -57,7 +59,9 @@
                     <i class="fa-solid fa-chevron-right"></i>
                 </span>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-3 txt-end">
+                <b>Valor Total:</b> <span id="valor-total"></span>
+            </div>
         </div>
     </div>
 </div>

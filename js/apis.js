@@ -74,7 +74,7 @@ function buscaUsuario (dados, nome) {
             localStorage.setItem('LOGADO', 'TRUE');
             localStorage.setItem('USUARIO_LOGADO', nome);
 
-            toastr.success('Seja bem-vindo ' + nome + '!', '', {
+            toastr.success('Seja bem-vind@  ' + nome + '!', '', {
                 closeButton: true,
                 progressBar: true,
                 positionClass: "toast-top-right",
@@ -146,10 +146,7 @@ function formataRegistros (registro) {
     data = formataData(new Date(data));
 
     let produto = registro.substring(26, 56);
-
     let valor = registro.substring(56, 66);
-    // valor.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL' });
-
     let vendedor = registro.substring(66, 86);
 
     let dados = {
@@ -171,6 +168,13 @@ function cadastraTransacoes (dados) {
         type: 'post',
         data: dados,
 
+        success: function (response) {
+
+            setTimeout(function () {
+                location.reload();
+            }, 1500);
+        },
+
         error: function (response) {
 
             toastr.error(response['responseJSON']['message'], '', {
@@ -186,9 +190,79 @@ function cadastraTransacoes (dados) {
     });
 }
 
+// Fetches and listing all transactions
+function buscaTransacoes (page) {
+
+    $.get('http://localhost:3000/api/transacoes?page=' + page, function (response) {
+
+        var table_body = 'table-body';
+
+        if (response['totalItems'] > 0) {
+
+            $('#total-itens').html(response['totalItems']);
+            $('#pagina-atual').val(response['currentPage']);
+            $('#div-pagination').removeClass('hidden').fadeIn('slow');
+            $('#div-upload').addClass('hidden').fadeOut('fast');
+
+            desabilitaBotao(response['currentPage'], response['totalPages']);
+
+            $('#' + table_body).empty();
+
+            let valorTotal = 0;
+
+            $.each(response['transacoes'], function (key, json) {
+
+                let valor = parseInt(json['valor']);
+                let valorCentavos = valor / 100000;
+                let valorReal = valorCentavos.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL' });
+
+                valorTotal = calculaValores(json['tipo'], valorCentavos, valorTotal);
+
+                $('#' + table_body)
+                    .append(
+                        '<tr>'+
+                        '<td>'+ json['id'] +'</td>' +
+                        '<td>'+ json['tipo'] +'</td>' +
+                        '<td>'+ formataDataExibe(json['data']) +'</td>' +
+                        '<td>'+ json['produto'] +'</td>' +
+                        '<td>'+ valorReal +'</td>' +
+                        '<td>'+ json['vendedor'] +'</td>' +
+                        '</tr>'
+                    );
+            });
+
+            $('#valor-total').html(valorTotal.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL' }));
+
+            // console.log(valorTotal)
+
+        } else {
+            $('#table-body')
+                .html('<tr class="txt-center"><td colspan="7">Nenhum registro encontrado!</td></tr>');
+            $('#div-pagination').addClass('hidden');
+        }
+    });
+}
+
+function calculaValores (tipo, valor, valorTotal) {
+
+    if (tipo === '1' || tipo === '2' || tipo === '4') {
+        valorTotal+= valor;
+    } else {
+        valorTotal-= valor;
+    }
+
+    return valorTotal;
+}
+
 // Changes date to database format
 function formataData (data) {
     return data.getFullYear() + '-' + (data.getMonth() + 1) + '-' + data.getDate() + ' ' + data.toLocaleTimeString();
+}
+
+// Changes the date to display to users
+function formataDataExibe (data) {
+    let date = new Date(data);
+    return date.toLocaleDateString('pt-BR') + ' ' + date.toLocaleTimeString();
 }
 
 function desabilitaBotao (currentPage, totalPages) {

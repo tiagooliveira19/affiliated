@@ -2,7 +2,7 @@ const db = require('../models');
 const Transacoes = db.transacoes;
 
 const getPagination = (page, size) => {
-    const limit = size ? +size : 10;
+    const limit = size ? +size : 20;
     const offset = page ? page * limit : 0;
 
     return { limit, offset };
@@ -52,7 +52,7 @@ exports.findAll = (req, res) => {
     const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    Usuarios.findAndCountAll({ order: [['id', 'ASC']], limit, offset })
+    Transacoes.findAndCountAll({ order: [['id', 'ASC']], limit, offset })
         .then(data => {
             const response = getPagingData(data, page, limit);
             res.send(response);

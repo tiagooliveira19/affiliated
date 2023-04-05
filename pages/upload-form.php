@@ -47,20 +47,21 @@
             </table>
         </div>
 
-        <input type="hidden" id="pagina-atual" value="">
+        <input type="hidden" id="current-page" value="">
 
         <div class="col-md-10 mt-4 mb-4 display-flex hidden" id="div-pagination">
             <div class="col-md-3"></div>
             <div class="col-md-4 txt-center margin-auto">
-                <span class="arrow-pagination" id="anterior">
+                <span class="arrow-pagination" id="previous" title="Anterior">
                     <i class="fa-solid fa-chevron-left"></i>
                 </span>
-                <span class="arrow-pagination" id="proxima">
+                <span id="page-number">1</span>
+                <span class="arrow-pagination" id="next" title="Próxima">
                     <i class="fa-solid fa-chevron-right"></i>
                 </span>
             </div>
             <div class="col-md-3 txt-end">
-                <b>Valor Total:</b> <span id="valor-total"></span>
+                <b>Valor Total:</b> <span id="total-value"></span>
             </div>
         </div>
     </div>

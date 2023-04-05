@@ -12,24 +12,35 @@
 
     $(document).ready(function () {
 
-        buscaTransacoes(0);
-        inicioPagina();
+        // Fetches and listing all transactions
+        fetchesTransactions(0);
 
-        let logado = localStorage.getItem('LOGADO');
+        // Changes layout structure when user is not logged
+        startsPage();
 
-        if (logado) {
-            usuarioLogado();
+        // Gets value of variable on localStorage
+        let logged = localStorage.getItem('LOGADO');
+
+        // Verifies if user is logged
+        if (logged) {
+            // Changes layout structure when user is logged
+            userLogged();
         }
 
+        // Signs out from application
         $('#sign-out').click(function () {
+
+            // Cleans localStorage
             localStorage.removeItem('LOGADO');
             localStorage.removeItem('USUARIO_LOGADO');
 
+            // Reloads page
             setTimeout(function () {
                 location.reload();
             }, 300);
         });
 
+        // Submits file to upload
         $('#load-file').click(function () {
 
             if ($('#upload-file').val() === '') {
@@ -43,7 +54,7 @@
                     hideMethod: "fadeOut"
                 });
             } else {
-                importaArquivo();
+                importesFile();
             }
         });
 
@@ -53,34 +64,36 @@
             keepStatic: true
         });
 
-        // Change to login form
+        // Switches to login form
         $('#btn-register').click(function () {
             $('.login-form').fadeOut('slow', function () {
                 $('.register-form').removeClass('hidden').fadeIn('slow');
             });
         });
 
-        // Change to register form
+        // Switches to register form
         $('#btn-login').click(function () {
             $('.register-form').fadeOut('slow', function () {
                 $('.login-form').removeClass('hidden').fadeIn('slow');
             });
         });
 
-        $('#proxima').click(function () {
+        // Switches to next page
+        $('#next').click(function () {
 
-            let paginaAtual = $('#pagina-atual').val();
-            let page = parseInt(paginaAtual) + 1;
+            let currentPage = $('#current-page').val();
+            let page = parseInt(currentPage) + 1;
 
-            buscaTransacoes(page);
+            fetchesTransactions(page);
         });
 
-        $('#anterior').click(function () {
+        // Switches to previous page
+        $('#previous').click(function () {
 
-            let paginaAtual = $('#pagina-atual').val();
-            let page = parseInt(paginaAtual) - 1;
+            let currentPage = $('#current-page').val();
+            let page = parseInt(currentPage) - 1;
 
-            buscaTransacoes(page);
+            fetchesTransactions(page);
         });
     });
 </script>

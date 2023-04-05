@@ -3,18 +3,19 @@ $('#register-form').submit(function (e) {
 
     e.preventDefault();
 
-    let dados = $(this).serialize();
+    let data = $(this).serialize();
 
-    cadastraUsuario(dados);
+    registersUser(data);
 });
 
-function cadastraUsuario (dados) {
+// Registers user in database
+function registersUser (data) {
 
     $.ajax({
         url: 'http://localhost:3000/api/usuarios/add',
         dataType: 'json',
         type: 'post',
-        data: dados,
+        data: data,
 
         success: function (response) {
             toastr.success('Usuário cadastrado com sucesso!', '', {
@@ -54,27 +55,27 @@ $('#login-form').submit(function (e) {
 
     e.preventDefault();
 
-    let dados = $(this).serialize();
+    let data = $(this).serialize();
+    let name = $('#nome').val();
 
-    let nome = $('#nome').val();
-
-    buscaUsuario(dados, nome);
+    fetchesUser(data, name);
 });
 
-function buscaUsuario (dados, nome) {
+// Fetches user in database
+function fetchesUser (data, name) {
 
     $.ajax({
         url: 'http://localhost:3000/api/usuarios/login',
         dataType: 'json',
         type: 'post',
-        data: dados,
+        data: data,
 
         success: function (response) {
 
             localStorage.setItem('LOGADO', 'TRUE');
-            localStorage.setItem('USUARIO_LOGADO', nome);
+            localStorage.setItem('USUARIO_LOGADO', name);
 
-            toastr.success('Seja bem-vind@  ' + nome + '!', '', {
+            toastr.success('Seja bem-vind@  ' + name + '!', '', {
                 closeButton: true,
                 progressBar: true,
                 positionClass: "toast-top-right",
@@ -85,7 +86,7 @@ function buscaUsuario (dados, nome) {
             });
 
             setTimeout(function () {
-                usuarioLogado();
+                userLogged();
             }, 1500);
         },
 
@@ -104,13 +105,15 @@ function buscaUsuario (dados, nome) {
     });
 }
 
-function inicioPagina () {
+// Changes layout structure when user is not logged
+function startsPage () {
     $('#login').addClass('item-menu-ativo');
     $('.login').fadeIn('fast');
     $('.upload-form, #form-content').addClass('hidden').fadeOut('fast');
 }
 
-function usuarioLogado () {
+// Changes layout structure when user is logged
+function userLogged () {
     $('.login').addClass('hidden').fadeOut('fast');
     $('#login').removeClass('item-menu-ativo').fadeOut('fast');
 
@@ -119,7 +122,8 @@ function usuarioLogado () {
     $('#form-content').removeClass('hidden').fadeIn('fast');
 }
 
-function importaArquivo () {
+// Importes data from file
+function importesFile () {
     let file = document.querySelector('input[type=file]').files[0];
     let reader = new FileReader();
 
@@ -128,26 +132,27 @@ function importaArquivo () {
     reader.onload = () => {
 
         var txt = reader.result;
-        var registros = txt.split('\n');
+        var records = txt.split('\n');
 
-        registros.pop();
+        records.pop();
 
-        registros.forEach(function (registro) {
-            formataRegistros(registro);
+        records.forEach(function (record) {
+            formatesRecords(record);
         });
     }
 }
 
-function formataRegistros (registro) {
+// Formates records to save in database
+function formatesRecords (record) {
 
-    let tipo = registro.substring(0, 1);
+    let tipo = record.substring(0, 1);
 
-    let data = registro.substring(1, 26);
-    data = formataData(new Date(data));
+    let data = record.substring(1, 26);
+    data = formatesDate(new Date(data));
 
-    let produto = registro.substring(26, 56);
-    let valor = registro.substring(56, 66);
-    let vendedor = registro.substring(66, 86);
+    let produto = record.substring(26, 56);
+    let valor = record.substring(56, 66);
+    let vendedor = record.substring(66, 86);
 
     let dados = {
         'tipo' : tipo,
@@ -157,16 +162,17 @@ function formataRegistros (registro) {
         'vendedor' : vendedor
     }
 
-    cadastraTransacoes(dados);
+    registerTransactions(dados);
 }
 
-function cadastraTransacoes (dados) {
+// Registers transaction in database
+function registerTransactions (data) {
 
     $.ajax({
         url: 'http://localhost:3000/api/transacoes/add',
         dataType: 'json',
         type: 'post',
-        data: dados,
+        data: data,
 
         success: function (response) {
 
@@ -191,7 +197,7 @@ function cadastraTransacoes (dados) {
 }
 
 // Fetches and listing all transactions
-function buscaTransacoes (page) {
+function fetchesTransactions (page) {
 
     $.get('http://localhost:3000/api/transacoes?page=' + page, function (response) {
 
@@ -200,40 +206,41 @@ function buscaTransacoes (page) {
         if (response['totalItems'] > 0) {
 
             $('#total-itens').html(response['totalItems']);
-            $('#pagina-atual').val(response['currentPage']);
+            $('#current-page').val(response['currentPage']);
             $('#div-pagination').removeClass('hidden').fadeIn('slow');
             $('#div-upload').addClass('hidden').fadeOut('fast');
 
-            desabilitaBotao(response['currentPage'], response['totalPages']);
+            disablesButton(response['currentPage'], response['totalPages']);
+
+            let pageNumber = response['currentPage'] + 1;
+            $('#page-number').html(pageNumber);
 
             $('#' + table_body).empty();
 
-            let valorTotal = 0;
+            let totalValue = 0;
 
             $.each(response['transacoes'], function (key, json) {
 
-                let valor = parseInt(json['valor']);
-                let valorCentavos = valor / 100000;
-                let valorReal = valorCentavos.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL' });
+                let value = parseInt(json['valor']);
+                let valueCents = value / 100000;
+                let realValue = valueCents.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL' });
 
-                valorTotal = calculaValores(json['tipo'], valorCentavos, valorTotal);
+                totalValue = calculatesValues(json['tipo'], valueCents, totalValue);
 
                 $('#' + table_body)
                     .append(
                         '<tr>'+
                         '<td>'+ json['id'] +'</td>' +
                         '<td>'+ json['tipo'] +'</td>' +
-                        '<td>'+ formataDataExibe(json['data']) +'</td>' +
+                        '<td>'+ formatesDateExibition(json['data']) +'</td>' +
                         '<td>'+ json['produto'] +'</td>' +
-                        '<td>'+ valorReal +'</td>' +
+                        '<td>'+ realValue +'</td>' +
                         '<td>'+ json['vendedor'] +'</td>' +
                         '</tr>'
                     );
             });
 
-            $('#valor-total').html(valorTotal.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL' }));
-
-            // console.log(valorTotal)
+            $('#total-value').html(totalValue.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL' }));
 
         } else {
             $('#table-body')
@@ -243,38 +250,40 @@ function buscaTransacoes (page) {
     });
 }
 
-function calculaValores (tipo, valor, valorTotal) {
+// Calculates the total value of transactions
+function calculatesValues (type, value, totalValue) {
 
-    if (tipo === '1' || tipo === '2' || tipo === '4') {
-        valorTotal+= valor;
+    if (type === '1' || type === '2' || type === '4') {
+        totalValue+= value;
     } else {
-        valorTotal-= valor;
+        totalValue-= value;
     }
 
-    return valorTotal;
+    return totalValue;
 }
 
 // Changes date to database format
-function formataData (data) {
+function formatesDate (data) {
     return data.getFullYear() + '-' + (data.getMonth() + 1) + '-' + data.getDate() + ' ' + data.toLocaleTimeString();
 }
 
 // Changes the date to display to users
-function formataDataExibe (data) {
+function formatesDateExibition (data) {
     let date = new Date(data);
     return date.toLocaleDateString('pt-BR') + ' ' + date.toLocaleTimeString();
 }
 
-function desabilitaBotao (currentPage, totalPages) {
+// Disables pagination buttons
+function disablesButton (currentPage, totalPages) {
     if (currentPage === 0) {
-        $('#anterior').css({'pointer-events': 'none', 'color': '#CCCCCC'});
+        $('#previous').css({'pointer-events': 'none', 'color': '#CCCCCC'});
     } else {
-        $('#anterior').css({'pointer-events': 'all', 'color': 'inherit'});
+        $('#previous').css({'pointer-events': 'all', 'color': 'inherit'});
     }
 
     if (currentPage === (totalPages - 1)) {
-        $('#proxima').css({'pointer-events': 'none', 'color': '#CCCCCC'});
+        $('#next').css({'pointer-events': 'none', 'color': '#CCCCCC'});
     } else {
-        $('#proxima').css({'pointer-events': 'all', 'color': 'inherit'});
+        $('#next').css({'pointer-events': 'all', 'color': 'inherit'});
     }
 }

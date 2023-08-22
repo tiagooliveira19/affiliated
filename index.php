@@ -3,7 +3,7 @@
 
 <head>
     <?php include 'metas.php'; ?>
-    <title>Lista de Afiliados</title>
+    <title>Affiliate List</title>
 </head>
 
 <body>

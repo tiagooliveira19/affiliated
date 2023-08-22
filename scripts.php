@@ -34,17 +34,27 @@
             localStorage.removeItem('LOGADO');
             localStorage.removeItem('USUARIO_LOGADO');
 
+            toastr.warning('See you later!', '', {
+                closeButton: true,
+                progressBar: true,
+                positionClass: "toast-top-right",
+                preventDuplicates: true,
+                showDuration: "1500",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut"
+            });
+
             // Reloads page
             setTimeout(function () {
                 location.reload();
-            }, 300);
+            }, 1800);
         });
 
         // Submits file to upload
         $('#load-file').click(function () {
 
             if ($('#upload-file').val() === '') {
-                toastr.error('O campo arquivo não pode ser vazio!', '', {
+                toastr.error('File field cannot be empty!', '', {
                     closeButton: true,
                     progressBar: true,
                     positionClass: "toast-top-right",

@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // simple route
 app.get("/", (req, res) => {
-    return res.json({ message: "Teste..." });
+    return res.json({ message: "Testing..." });
 });
 
 require("./routes/usuarios.routes")(app);

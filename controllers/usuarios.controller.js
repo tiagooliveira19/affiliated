@@ -21,7 +21,7 @@ exports.create = (req, res) => {
     // Validates a request
     if (!req.body) {
         res.status(400).send({
-            message: "Os dados não podem ser vazios!"
+            message: "Data cannot be empty!"
         });
     }
 
@@ -40,7 +40,7 @@ exports.create = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Ocorreu algum erro durante a criação do usuario!"
+                message: "An error occurred while creating the user!"
             });
         });
 };
@@ -58,7 +58,7 @@ exports.login = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Erro ao buscar usuario com o login " + req.body.nome
+                message: "Error fetching user with login " + req.body.nome
             });
         });
 };
@@ -76,7 +76,7 @@ exports.findAll = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Ocorreu algum erro durante a busca dos usuários!"
+                message: "An error occurred while searching for users!"
             });
         });
 };

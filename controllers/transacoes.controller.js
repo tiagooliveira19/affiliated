@@ -21,7 +21,7 @@ exports.create = (req, res) => {
     // Validates a request
     if (!req.body) {
         res.status(400).send({
-            message: "Os dados não podem ser vazios!"
+            message: "Data cannot be empty!"
         });
     }
 
@@ -41,7 +41,7 @@ exports.create = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Ocorreu algum erro durante a criação da transação!"
+                message: "An error occurred while creating the transaction!"
             });
         });
 };
@@ -59,7 +59,7 @@ exports.findAll = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Ocorreu algum erro durante a busca das transações!"
+                message: "An error occurred while fetching transactions!"
             });
         });
 };

@@ -18,7 +18,7 @@ function registersUser (data) {
         data: data,
 
         success: function (response) {
-            toastr.success('Usuário cadastrado com sucesso!', '', {
+            toastr.success('Successfully registered user!', '', {
                 closeButton: true,
                 progressBar: true,
                 positionClass: "toast-top-right",
@@ -75,7 +75,7 @@ function fetchesUser (data, name) {
             localStorage.setItem('LOGADO', 'TRUE');
             localStorage.setItem('USUARIO_LOGADO', name);
 
-            toastr.success('Seja bem-vind@  ' + name + '!', '', {
+            toastr.success('Welcome  ' + name + '!', '', {
                 closeButton: true,
                 progressBar: true,
                 positionClass: "toast-top-right",
@@ -240,11 +240,11 @@ function fetchesTransactions (page) {
                     );
             });
 
-            $('#total-value').html(totalValue.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL' }));
+            $('#total-value').html(totalValue.toLocaleString("en-US", {style: 'currency', currency: 'USD' }));
 
         } else {
             $('#table-body')
-                .html('<tr class="txt-center"><td colspan="7">Nenhum registro encontrado!</td></tr>');
+                .html('<tr class="txt-center"><td colspan="7">No record found!</td></tr>');
             $('#div-pagination').addClass('hidden');
         }
     });

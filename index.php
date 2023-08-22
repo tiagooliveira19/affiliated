@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 
 <head>
     <?php include 'metas.php'; ?>
@@ -22,7 +22,7 @@
                 <div class="col-md-12 item-menu hidden" id="upload-form">
                     <div class="col-md-1 tarja"></div>
                     <div class="col-md-11 descricao">
-                        Upload Afiliados
+                        Upload Affiliates
                     </div>
                 </div>
                 <div class="col-md-12 menu-footer"></div>

@@ -2,13 +2,13 @@
 
 * Project Name: affiliated
 * Quick summary: APIs and application to upload and listing transactions information
-* Version: 1.0
+* Version: 1.1
 * Notice: <i>This is a challenge by <a href="https://coodesh.com" target="_blank">Coodesh</a></i>
 * Presentation: <a href="https://www.loom.com/embed/067e7d5b5ea14864abdee6eaba2e258f" target="_blank">Link</a>
 
 ### How do I get set up? ###
 
-* Summary of set up: <code>Node v18.12.1.</code>
+* Summary of set up: <code>Node v18.17.1.</code>
 * Dependencies: <code>body-parser, express, mysql2, cors, sequelize</code>
 * Database configuration: MySQL running on apache server using <code>xampp</code> tool
 * How to run the project server: In the terminal, run the command <code>node server.js</code>

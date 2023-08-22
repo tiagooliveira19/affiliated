@@ -1,6 +1,6 @@
 ### What is this repository for? ###
 
-* Project Name: afiliados
+* Project Name: affiliated
 * Quick summary: APIs and application to upload and listing transactions information
 * Version: 1.0
 * Notice: <i>This is a challenge by <a href="https://coodesh.com" target="_blank">Coodesh</a></i>
